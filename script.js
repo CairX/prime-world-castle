@@ -4,18 +4,19 @@
 
 var DIMENSION = 20;
 
-var Area = function(x, y, width, height) {
+var Area = function(x, y, width, height, color) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.color = color;
 };
 Area.prototype.clicked = function (x, y) {
     return x > this.x && x < (this.x + this.width) &&
            y > this.y && y < (this.y + this.height);
 };
 Area.prototype.draw = function (context) {
-    context.fillStyle = 'rgba(0, 255, 0, 0.5)';
+    context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.width, this.height);
 };
 Area.prototype.move = function (x, y) {
@@ -35,6 +36,14 @@ Area.prototype.snap = function () {
     ydiff = ydiff < DIMENSION / 2 ? ydiff * -1 : (DIMENSION - ydiff);
     this.y += ydiff + 1;
 };
+
+var Five = function(x, y) {
+    Area.call(this, x, y, 5*DIMENSION-1, 5*DIMENSION-1, 'rgba(255, 0, 0, 0.5)');
+};
+Five.prototype = Object.create(Area.prototype);
+Five.prototype.constructor = Five;
+
+var areas = [];
 
 var draw = function(canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,20 +68,24 @@ var draw = function(canvas, context) {
         context.fillStyle = 'rgba(0, 0, 0, 1)';
         context.fillRect((block.x * DIMENSION) + 1, (block.y * DIMENSION) + 1, DIMENSION-1, DIMENSION-1);
     }
+
+    for (var i = 0; i < areas.length; i++) {
+        areas[i].draw(context);
+    }
 };
 
 var load = function() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
 
-    var area = new Area((5 * DIMENSION) + 1, (5 * DIMENSION) + 1, 6*DIMENSION-1, 6*DIMENSION-1);
+    areas.push(new Area((5 * DIMENSION) + 1, (5 * DIMENSION) + 1, 6*DIMENSION-1, 6*DIMENSION-1, 'rgba(0, 255, 0, 0.5)'));
+    areas.push(new Five((15 * DIMENSION) + 1, (15 * DIMENSION) + 1));
 
     var resize = function () {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         draw(canvas, context);
-        area.draw(context);
     };
 
     resize();
@@ -81,24 +94,28 @@ var load = function() {
     var active = false;
     canvas.addEventListener('mousedown', function(event) {
         console.log(event);
-        active = area.clicked(event.clientX, event.clientY);
-        if (active) {
-            area.offset(event.clientX, event.clientY);
+
+        for (var i = 0; i < areas.length; i++) {
+            if (areas[i].clicked(event.clientX, event.clientY)) {
+                active = areas[i];
+                active.offset(event.clientX, event.clientY);
+                break;
+            }
         }
     });
     canvas.addEventListener('mouseup', function(event) {
         console.log(event);
-        active = false;
-        area.snap();
+
+        active.snap();
         draw(canvas, context);
-        area.draw(context);
+        active = false;
     });
     canvas.addEventListener('mousemove', function(event) {
         if (active) {
             console.log(event);
-            area.move(event.clientX, event.clientY);
+
+            active.move(event.clientX, event.clientY);
             draw(canvas, context);
-            area.draw(context);
         }
     });
 };
