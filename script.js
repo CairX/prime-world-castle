@@ -26,6 +26,15 @@ Area.prototype.offset = function (x, y) {
     this.offsetX = x - this.x;
     this.offsetY = y - this.y;
 };
+Area.prototype.snap = function () {
+    var xdiff = this.x % DIMENSION;
+    xdiff = xdiff < DIMENSION / 2 ? xdiff * -1 : (DIMENSION - xdiff);
+    this.x += xdiff + 1;
+
+    var ydiff = this.y % DIMENSION;
+    ydiff = ydiff < DIMENSION / 2 ? ydiff * -1 : (DIMENSION - ydiff);
+    this.y += ydiff + 1;
+};
 
 var draw = function(canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -80,6 +89,9 @@ var load = function() {
     canvas.addEventListener('mouseup', function(event) {
         console.log(event);
         active = false;
+        area.snap();
+        draw(canvas, context);
+        area.draw(context);
     });
     canvas.addEventListener('mousemove', function(event) {
         if (active) {
