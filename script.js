@@ -44,10 +44,10 @@ var load = function() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
 
-    var resize = function () {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    canvas.width = 961;
+    canvas.height = 801;
 
+    var resize = function () {
         draw(canvas, context);
     };
 
@@ -56,30 +56,60 @@ var load = function() {
 
     var active = false;
     canvas.addEventListener('mousedown', function(event) {
-        console.log(event);
+
+        var rect = canvas.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
 
         for (var i = 0; i < areas.length; i++) {
-            if (areas[i].clicked(event.clientX, event.clientY)) {
+            if (areas[i].clicked(x, y)) {
                 active = areas[i];
-                active.offset(event.clientX, event.clientY);
+                active.offset(x, y);
                 break;
             }
         }
     });
-    canvas.addEventListener('mouseup', function(event) {
-        console.log(event);
-
-        active.snap();
-        draw(canvas, context);
-        active = false;
+    canvas.addEventListener('mouseup', function() {
+        if (active) {
+            active.snap();
+            draw(canvas, context);
+            active = false;
+        }
     });
     canvas.addEventListener('mousemove', function(event) {
         if (active) {
-            console.log(event);
+            //console.log(event);
 
-            active.move(event.clientX, event.clientY);
+            var rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+
+            active.move(x, y);
             draw(canvas, context);
         }
+    });
+
+    var menu = document.getElementById('menu');
+    menu.addEventListener('click', function (event) {
+        switch (event.target.getAttribute('data-type')) {
+            case '3':
+                areas.push(new Three(1, 1));
+                break;
+            case '4':
+                areas.push(new Four(1, 1));
+                break;
+            case '5':
+                areas.push(new Five(1, 1));
+                break;
+            case '6':
+                areas.push(new Six(1, 1));
+                break;
+            case '8':
+                areas.push(new Eight(1, 1));
+                break;
+        }
+
+        draw(canvas, context);
     });
 };
 
