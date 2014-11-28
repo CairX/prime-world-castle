@@ -4,7 +4,28 @@ html, body {
     padding: 0;
     margin: 0;
 }
-canvas {
+html {
+    font: 14px/1 Arial, sans-serif;
+}
+body {
     background: #eee;
+}
+
+canvas {
+    background: #fff;
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.12);
     display: block;
+    margin: 0 auto;
+}
+
+#menu {
+    text-align: center;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.12);
+    margin: 0 0 1.5rem;
+}
+#menu span {
+    padding: 1.5rem;
+    display: inline-block;
+    cursor: pointer;
 }
