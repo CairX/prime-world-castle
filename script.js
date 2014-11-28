@@ -16,6 +16,7 @@ var draw = function(canvas, context) {
 
     context.beginPath();
     context.strokeStyle = 'rgba(210, 210, 210, 1)';
+    context.strokeStyle = 'rgba(255, 255, 255, 1)';
     context.lineWidth = 1;
 
     for (var x = 0; x < canvas.width; x += DIMENSION) {
@@ -32,6 +33,7 @@ var draw = function(canvas, context) {
     for (var i = 0; i < outline.length; i++) {
         var block = outline[i];
         context.fillStyle = 'rgba(0, 0, 0, 1)';
+        context.fillStyle = 'rgba(255, 255, 255, 1)';
         context.fillRect((block.x * DIMENSION) + 1, (block.y * DIMENSION) + 1, DIMENSION-1, DIMENSION-1);
     }
 

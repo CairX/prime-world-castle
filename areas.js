@@ -2,6 +2,12 @@
 
 var DIMENSION = 20;
 
+var PURPLE = 'rgba(156, 39, 176, 0.5)';
+var YELLOW = 'rgba(253, 216, 53, 0.5)';
+var RED = 'rgba(244, 67, 54, 0.5)';
+var GREEN = 'rgba(0, 150, 136, 0.5)';
+var BLUE = 'rgba(3, 169, 244, 0.5)';
+
 /*
  * Base
  */
@@ -42,7 +48,7 @@ Area.prototype.snap = function () {
  * Three
  */
 var Three = function(x, y) {
-    Area.call(this, x, y, 3*DIMENSION-1, 3*DIMENSION-1, 'rgba(255, 0, 255, 0.5)');
+    Area.call(this, x, y, 3*DIMENSION-1, 3*DIMENSION-1, PURPLE);
 };
 Three.prototype = Object.create(Area.prototype);
 Three.prototype.constructor = Three;
@@ -51,7 +57,7 @@ Three.prototype.constructor = Three;
  * Four
  */
 var Four = function(x, y) {
-    Area.call(this, x, y, 4*DIMENSION-1, 4*DIMENSION-1, 'rgba(255, 255, 0, 0.5)');
+    Area.call(this, x, y, 4*DIMENSION-1, 4*DIMENSION-1, YELLOW);
 };
 Four.prototype = Object.create(Area.prototype);
 Four.prototype.constructor = Four;
@@ -60,7 +66,7 @@ Four.prototype.constructor = Four;
  * Five
  */
 var Five = function(x, y) {
-    Area.call(this, x, y, 5*DIMENSION-1, 5*DIMENSION-1, 'rgba(255, 0, 0, 0.5)');
+    Area.call(this, x, y, 5*DIMENSION-1, 5*DIMENSION-1, RED);
 };
 Five.prototype = Object.create(Area.prototype);
 Five.prototype.constructor = Five;
@@ -69,7 +75,7 @@ Five.prototype.constructor = Five;
  * Six
  */
 var Six = function(x, y) {
-    Area.call(this, x, y, 6*DIMENSION-1, 6*DIMENSION-1, 'rgba(0, 255, 0, 0.5)');
+    Area.call(this, x, y, 6*DIMENSION-1, 6*DIMENSION-1, GREEN);
 };
 Six.prototype = Object.create(Area.prototype);
 Six.prototype.constructor = Six;
@@ -78,7 +84,7 @@ Six.prototype.constructor = Six;
  * Eight
  */
 var Eight = function(x, y) {
-    Area.call(this, x, y, 8*DIMENSION-1, 8*DIMENSION-1, 'rgba(0, 0, 255, 0.5)');
+    Area.call(this, x, y, 8*DIMENSION-1, 8*DIMENSION-1, BLUE);
 };
 Eight.prototype = Object.create(Area.prototype);
 Eight.prototype.constructor = Eight;
