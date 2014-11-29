@@ -1,4 +1,4 @@
-/* global outline, Three, Four, Five, Six, Eight */
+/* global outline, Three, Four, Five, Six, Eight, Trash */
 
 'use strict';
 
@@ -10,6 +10,8 @@ areas.push(new Four((3 * DIMENSION) + 1, (0 * DIMENSION) + 1));
 areas.push(new Five((7 * DIMENSION) + 1, (0 * DIMENSION) + 1));
 areas.push(new Six((12 * DIMENSION) + 1, (0 * DIMENSION) + 1));
 areas.push(new Eight((18 * DIMENSION) + 1, (0 * DIMENSION) + 1));
+
+var trash = new Trash((43 * DIMENSION) + 1, (0 * DIMENSION) + 1);
 
 var draw = function(canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -29,6 +31,8 @@ var draw = function(canvas, context) {
     }
 
     context.stroke();
+
+    trash.draw(context);
 
     for (var i = 0; i < outline.length; i++) {
         var block = outline[i];
@@ -58,30 +62,36 @@ var load = function() {
 
     var active = false;
     canvas.addEventListener('mousedown', function(event) {
-
         var rect = canvas.getBoundingClientRect();
         var x = event.clientX - rect.left;
         var y = event.clientY - rect.top;
 
         for (var i = 0; i < areas.length; i++) {
-            if (areas[i].clicked(x, y)) {
+            if (areas[i].within(x, y)) {
                 active = areas[i];
                 active.offset(x, y);
                 break;
             }
         }
     });
-    canvas.addEventListener('mouseup', function() {
+    canvas.addEventListener('mouseup', function(event) {
         if (active) {
-            active.snap();
+            var rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+
+            if (trash.within(x, y)) {
+                areas.splice(areas.indexOf(active), 1);
+            } else {
+                active.snap();
+            }
+
             draw(canvas, context);
             active = false;
         }
     });
     canvas.addEventListener('mousemove', function(event) {
         if (active) {
-            //console.log(event);
-
             var rect = canvas.getBoundingClientRect();
             var x = event.clientX - rect.left;
             var y = event.clientY - rect.top;
