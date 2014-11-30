@@ -1,11 +1,8 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('fonts/roboto.ttf');
+    src: url('../fonts/roboto.ttf');
 }
-@font-face {
-    font-family: 'Awesome';
-    src: url('fonts/awesome.ttf');
-}
+
 
 html, body {
     width: 100%;
@@ -25,6 +22,15 @@ canvas {
     background: rgb(238, 238, 238);
     display: block;
     margin: 0 auto;
+}
+
+footer {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+footer a {
+    color: rgba(0, 0, 0, 0.87);
 }
 
 #menu {

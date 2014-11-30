@@ -101,7 +101,7 @@ Trash.prototype.draw = function(context) {
     Area.prototype.draw.call(this, context);
     context.fillStyle = 'rgba(244, 67, 54, 0.25)';
 
-    context.font = '28px Awesome';
+    context.font = '28px FontAwesome';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText('\uf014', (this.x + this.width / 2), (this.y + this.height / 2));
