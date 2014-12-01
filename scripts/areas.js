@@ -8,6 +8,22 @@ var RED = 'rgba(244, 67, 54, 0.5)';
 var GREEN = 'rgba(0, 150, 136, 0.5)';
 var BLUE = 'rgba(3, 169, 244, 0.5)';
 
+var add = function(a, b) {
+    return a + b;
+};
+var sub = function(a, b) {
+    return a - b;
+};
+var less = function(a, b) {
+    return a < b;
+};
+var greater = function(a, b) {
+    return a > b;
+};
+var withinLine = function(point, start, end) {
+    return greater(point, start) && less(point, end);
+};
+
 /**
  * Base
  */
@@ -19,24 +35,24 @@ var Area = function(x, y, width, height, color) {
     this.color = color;
 };
 Area.prototype.within = function(x, y) {
-    return x > this.x && x < (this.x + this.width) &&
-           y > this.y && y < (this.y + this.height);
+    return withinLine(x, this.x, add(this.x, this.width)) &&
+           withinLine(y, this.y, add(this.y, this.height));
 };
 Area.prototype.draw = function (context) {
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.width, this.height);
 };
 Area.prototype.move = function(x, y) {
-    this.x = x -this.offsetX;
-    this.y = y - this.offsetY;
+    this.x = sub(x, this.offsetX);
+    this.y = sub(y, this.offsetY);
 };
 Area.prototype.offset = function(x, y) {
-    this.offsetX = x - this.x;
-    this.offsetY = y - this.y;
+    this.offsetX = sub(x, this.x);
+    this.offsetY = sub(y, this.y);
 };
 Area.prototype.snap = function() {
     var xdiff = this.x % DIMENSION;
-    xdiff = xdiff < DIMENSION / 2 ? xdiff * -1 : (DIMENSION - xdiff);
+    xdiff = less(xdiff, DIMENSION / 2) ? xdiff * -1 : sub(DIMENSION, xdiff);
     this.x += xdiff + 1;
 
     var ydiff = this.y % DIMENSION;
