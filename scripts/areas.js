@@ -14,6 +14,10 @@ var add = function(a, b) {
 var sub = function(a, b) {
     return a - b;
 };
+var div = function(a, b) {
+    return a / b;
+};
+
 var less = function(a, b) {
     return a < b;
 };
@@ -22,6 +26,14 @@ var greater = function(a, b) {
 };
 var withinLine = function(point, start, end) {
     return greater(point, start) && less(point, end);
+};
+var round = function(number, round) {
+    var diff = number % round;
+    if (less(diff, div(round, 2))) {
+        return sub(number, diff);
+    } else {
+        return add(number, sub(round, diff));
+    }
 };
 
 /**
@@ -51,13 +63,8 @@ Area.prototype.offset = function(x, y) {
     this.offsetY = sub(y, this.y);
 };
 Area.prototype.snap = function() {
-    var xdiff = this.x % DIMENSION;
-    xdiff = less(xdiff, DIMENSION / 2) ? xdiff * -1 : sub(DIMENSION, xdiff);
-    this.x += xdiff + 1;
-
-    var ydiff = this.y % DIMENSION;
-    ydiff = ydiff < DIMENSION / 2 ? ydiff * -1 : (DIMENSION - ydiff);
-    this.y += ydiff + 1;
+    this.x = add(round(this.x, DIMENSION), 1);
+    this.y = add(round(this.y, DIMENSION), 1);
 };
 
 /**
