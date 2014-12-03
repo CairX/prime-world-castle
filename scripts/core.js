@@ -1,44 +1,27 @@
-/* global outline, Three, Four, Five, Six, Eight, Trash */
+/* global outline, Grid, Three, Four, Five, Six, Eight, Trash */
 
 'use strict';
 
-var DIMENSION = 20;
-
 var areas = [];
-areas.push(new Three((0 * DIMENSION) + 1, (0 * DIMENSION) + 1));
-areas.push(new Four((3 * DIMENSION) + 1, (0 * DIMENSION) + 1));
-areas.push(new Five((7 * DIMENSION) + 1, (0 * DIMENSION) + 1));
-areas.push(new Six((12 * DIMENSION) + 1, (0 * DIMENSION) + 1));
-areas.push(new Eight((18 * DIMENSION) + 1, (0 * DIMENSION) + 1));
+areas.push(new Three(Grid.start(0), Grid.start(0)));
+areas.push(new Four(Grid.start(3), Grid.start(0)));
+areas.push(new Five(Grid.start(7), Grid.start(0)));
+areas.push(new Six(Grid.start(12), Grid.start(0)));
+areas.push(new Eight(Grid.start(18), Grid.start(0)));
 
-var trash = new Trash((43 * DIMENSION) + 1, (0 * DIMENSION) + 1);
+var trash = new Trash(Grid.start(43), Grid.start(0));
 
 var draw = function(canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.beginPath();
-    context.strokeStyle = 'rgba(210, 210, 210, 1)';
-    context.strokeStyle = 'rgba(255, 255, 255, 1)';
-    context.lineWidth = 1;
-
-    for (var x = 0; x < canvas.width; x += DIMENSION) {
-        context.moveTo(x+0.5, 0);
-        context.lineTo(x+0.5, canvas.height);
-    }
-    for (var y = 0; y < canvas.height; y += DIMENSION) {
-        context.moveTo(0, y+0.5);
-        context.lineTo(canvas.width, y+0.5);
-    }
-
-    context.stroke();
+    Grid.draw(context);
 
     trash.draw(context);
 
     for (var i = 0; i < outline.length; i++) {
         var block = outline[i];
-        context.fillStyle = 'rgba(0, 0, 0, 1)';
         context.fillStyle = 'rgba(255, 255, 255, 1)';
-        context.fillRect((block.x * DIMENSION) + 1, (block.y * DIMENSION) + 1, DIMENSION-1, DIMENSION-1);
+        context.fillRect(Grid.start(block.x), Grid.start(block.y), Grid.end(1), Grid.end(1));
     }
 
     for (var i = 0; i < areas.length; i++) {

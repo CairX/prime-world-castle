@@ -1,6 +1,6 @@
-'use strict';
+/* global Grid */
 
-var DIMENSION = 20;
+'use strict';
 
 var PURPLE = 'rgba(156, 39, 176, 0.5)';
 var YELLOW = 'rgba(253, 216, 53, 0.5)';
@@ -16,6 +16,9 @@ var sub = function(a, b) {
 };
 var div = function(a, b) {
     return a / b;
+};
+var multi = function(a, b) {
+    return a * b;
 };
 
 var less = function(a, b) {
@@ -63,15 +66,15 @@ Area.prototype.offset = function(x, y) {
     this.offsetY = sub(y, this.y);
 };
 Area.prototype.snap = function() {
-    this.x = add(round(this.x, DIMENSION), 1);
-    this.y = add(round(this.y, DIMENSION), 1);
+    this.x = Grid.snap(this.x);
+    this.y = Grid.snap(this.y);
 };
 
 /**
  * Three
  */
 var Three = function(x, y) {
-    Area.call(this, x, y, 3*DIMENSION-1, 3*DIMENSION-1, PURPLE);
+    Area.call(this, x, y, Grid.end(3), Grid.end(3), PURPLE);
 };
 Three.prototype = Object.create(Area.prototype);
 Three.prototype.constructor = Three;
@@ -80,7 +83,7 @@ Three.prototype.constructor = Three;
  * Four
  */
 var Four = function(x, y) {
-    Area.call(this, x, y, 4*DIMENSION-1, 4*DIMENSION-1, YELLOW);
+    Area.call(this, x, y, Grid.end(4), Grid.end(4), YELLOW);
 };
 Four.prototype = Object.create(Area.prototype);
 Four.prototype.constructor = Four;
@@ -89,7 +92,7 @@ Four.prototype.constructor = Four;
  * Five
  */
 var Five = function(x, y) {
-    Area.call(this, x, y, 5*DIMENSION-1, 5*DIMENSION-1, RED);
+    Area.call(this, x, y, Grid.end(5), Grid.end(5), RED);
 };
 Five.prototype = Object.create(Area.prototype);
 Five.prototype.constructor = Five;
@@ -98,7 +101,7 @@ Five.prototype.constructor = Five;
  * Six
  */
 var Six = function(x, y) {
-    Area.call(this, x, y, 6*DIMENSION-1, 6*DIMENSION-1, GREEN);
+    Area.call(this, x, y, Grid.end(6), Grid.end(6), GREEN);
 };
 Six.prototype = Object.create(Area.prototype);
 Six.prototype.constructor = Six;
@@ -107,7 +110,7 @@ Six.prototype.constructor = Six;
  * Eight
  */
 var Eight = function(x, y) {
-    Area.call(this, x, y, 8*DIMENSION-1, 8*DIMENSION-1, BLUE);
+    Area.call(this, x, y, Grid.end(8), Grid.end(8), BLUE);
 };
 Eight.prototype = Object.create(Area.prototype);
 Eight.prototype.constructor = Eight;
@@ -116,7 +119,7 @@ Eight.prototype.constructor = Eight;
  * Trash
  */
 var Trash = function(x, y) {
-    Area.call(this, x, y, 5*DIMENSION-1, 5*DIMENSION-1, 'rgb(238, 238, 238)');
+    Area.call(this, x, y, Grid.end(5), Grid.end(5), 'rgb(238, 238, 238)');
 };
 Trash.prototype = Object.create(Area.prototype);
 Trash.prototype.constructor = Trash;
