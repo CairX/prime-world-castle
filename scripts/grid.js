@@ -40,7 +40,7 @@ var Grid = (function() {
     };
 
     var snap = function(number) {
-        return add(round(number, space), line);
+        return add(round(number, add(space, line)), line);
     };
 
     return {
