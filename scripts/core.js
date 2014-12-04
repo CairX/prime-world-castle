@@ -1,4 +1,4 @@
-/* global outline, Grid, Three, Four, Five, Six, Eight, Trash */
+/* global Outline, Grid, Three, Four, Five, Six, Eight, Trash */
 
 'use strict';
 
@@ -15,14 +15,8 @@ var draw = function(canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     Grid.draw(context);
-
+    Outline.draw(context);
     trash.draw(context);
-
-    for (var i = 0; i < outline.length; i++) {
-        var block = outline[i];
-        context.fillStyle = 'rgba(255, 255, 255, 1)';
-        context.fillRect(Grid.start(block.x), Grid.start(block.y), Grid.end(1), Grid.end(1));
-    }
 
     for (var i = 0; i < areas.length; i++) {
         areas[i].draw(context);
