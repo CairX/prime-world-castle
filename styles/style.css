@@ -24,12 +24,12 @@ canvas {
 }
 
 footer {
-    font-size: 1.5rem;
+    font-size: 3rem;
     text-align: center;
     margin: 1.5rem 0;
 }
 footer a {
-    color: rgba(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, 0.12);
 }
 
 #menu {
