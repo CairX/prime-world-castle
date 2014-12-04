@@ -1,5 +1,5 @@
 /* exported Grid */
-/* global add, multi, round, sub */
+/* global add, mult, round, sub */
 
 'use strict';
 
@@ -28,11 +28,11 @@ var Grid = (function() {
     };
 
     var end = function(number) {
-        return sub(multi(number, space), line);
+        return sub(mult(number, space), line);
     };
 
     var start = function(number) {
-        return add(multi(number, space), line);
+        return add(mult(number, space), line);
     };
 
     var snap = function(number) {
