@@ -1,4 +1,4 @@
-/* global Grid, withinLine */
+/* global Grid */
 
 'use strict';
 
@@ -24,8 +24,8 @@ var Area = function(x, y, width, height, color) {
     this.color = color;
 };
 Area.prototype.within = function(x, y) {
-    return withinLine(x, this.x, this.x + this.width) &&
-           withinLine(y, this.y, this.y + this.height);
+    return !(x < this.x || x >= this.x + this.width ||
+             y < this.y || y >= this.y + this.height);
 };
 Area.prototype.draw = function (context) {
     context.fillStyle = this.color;
