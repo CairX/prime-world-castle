@@ -27,7 +27,7 @@ var Grid = (function() {
     };
 
     var position = function(number) {
-        return (number * space) + (number * line);
+        return number * (space + line);
     };
 
     var end = function(number) {
