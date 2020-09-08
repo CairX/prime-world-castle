@@ -1,5 +1,4 @@
 /* exported Grid */
-/* global round */
 
 'use strict';
 
@@ -40,7 +39,13 @@ var Grid = (function() {
     };
 
     var snap = function(number) {
-        return round(number, space + line) + line;
+        var spacing = space + line;
+        var diff = number % spacing;
+        var closest = number - diff + line;
+        if (diff >= (spacing * 0.5)) {
+            closest += spacing;
+        }
+        return closest;
     };
 
     return {
