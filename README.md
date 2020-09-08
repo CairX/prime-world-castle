@@ -1,4 +1,3 @@
-prime-world-castle
+Prime World Castle
 ==================
-
-Desing the layout of your Prime World castle.
+Design the layout of your Prime World castle.
