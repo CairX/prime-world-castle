@@ -1,4 +1,4 @@
-/* global Grid, withinLine, add, sub */
+/* global Grid, withinLine */
 
 'use strict';
 
@@ -24,20 +24,20 @@ var Area = function(x, y, width, height, color) {
     this.color = color;
 };
 Area.prototype.within = function(x, y) {
-    return withinLine(x, this.x, add(this.x, this.width)) &&
-           withinLine(y, this.y, add(this.y, this.height));
+    return withinLine(x, this.x, this.x + this.width) &&
+           withinLine(y, this.y, this.y + this.height);
 };
 Area.prototype.draw = function (context) {
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.width, this.height);
 };
 Area.prototype.move = function(x, y) {
-    this.x = sub(x, this.offsetX);
-    this.y = sub(y, this.offsetY);
+    this.x = x - this.offsetX;
+    this.y = y - this.offsetY;
 };
 Area.prototype.offset = function(x, y) {
-    this.offsetX = sub(x, this.x);
-    this.offsetY = sub(y, this.y);
+    this.offsetX = x - this.x;
+    this.offsetY = y - this.y;
 };
 Area.prototype.snap = function() {
     this.x = Grid.snap(this.x);
